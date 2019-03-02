@@ -2,7 +2,7 @@
 const debug = require('debug')('migration:0001-ACL')
 
 module.exports = {
-  up: async (app) => {
+  up: async (app, callback) => {
     const { Role, RoleMapping, User } = app.models;
 
     await app.dataSources.db.autoupdate(['Role', 'RoleMapping']);
@@ -17,7 +17,7 @@ module.exports = {
       { name: 'employee', description: 'Colaborador' },
       { name: 'client', description: 'Cliente' }
     ]);
-    
+
     const userCreated = await User.create({
       realm: 'unirede',
       username: 'admin',
@@ -25,7 +25,7 @@ module.exports = {
       password: '123qwe!@#',
       emailVerified: true
     });
-    
+
     debug('roleCreated', roleCreated);
     debug('userCreated', userCreated);
     if (roleCreated && roleCreated.length && userCreated) {
@@ -35,7 +35,7 @@ module.exports = {
       });
     }
 
-    return undefined;
+    callback();
   },
 
   down: (app, callback) => { callback(); },
