@@ -1,0 +1,32 @@
+{
+  "name": "Usuario",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [{
+    "accessType": "EXECUTE",
+    "principalType": "ROLE",
+    "principalId": "$authenticated",
+    "permission": "ALLOW",
+    "property": [
+      "find",
+      "findById",
+      "deleteById",
+      "create",
+      "patchAttributes",
+      "findOne",
+      "updateAll"
+    ]
+  }],
+  "methods": {}
+}
