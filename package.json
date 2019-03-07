@@ -10,7 +10,7 @@
     "start": "node .",
     "posttest": "npm run lint",
     "dev": "cross-env NODE_ENV=development nodemon .",
-    "debug": "set DEBUG=Migration && cross-env NODE_ENV=development nodemon .",
+    "debug": "set DEBUG=Autenticacao && cross-env NODE_ENV=development nodemon .",
     "prod": "cross-env NODE_ENV=production nodemon ."
   },
   "dependencies": {
