@@ -36,7 +36,7 @@
   },
   "Role": {
     "dataSource": "db",
-    "public": false
+    "public": true
   },
   "Usuario": {
     "dataSource": "db",
