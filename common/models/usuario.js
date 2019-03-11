@@ -13,7 +13,14 @@ module.exports = Usuario => {
         principalType: 'USER',
       },
     });
-    if (roleMappingUser) return await Role.findById(roleMappingUser.roleId, {fields: ['id', 'name', 'description']});
+    if (roleMappingUser) return await Role.findById(roleMappingUser.roleId, {fields: ['id', 'name', 'description']})
+      .then(Res => {
+        return {
+          label: Res.name,
+          sublabel: Res.description,
+          value: Res.id,
+        };
+      });
     else return undefined;
   };
 };
