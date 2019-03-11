@@ -29,12 +29,12 @@ module.exports = Usuario => {
  * @param {object} form Dados do formulário de insert/update
  */
   Usuario.CreateOrUpdateWhithACL = async (form) => {
-    let where;
-
-    if (form.id) where = {id: form.id};
+    const id = form.id;
     delete form.id;
 
-    const user = Usuario.upsertWithWhere(where, form);
+    const user = id ?
+      Usuario.updateAll({id: id}, form) :
+      Usuario.create(form);
 
     user.then(Res => {
       const roleMappingData = {
