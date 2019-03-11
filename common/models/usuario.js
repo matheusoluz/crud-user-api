@@ -42,7 +42,7 @@ module.exports = Usuario => {
         principalId: Res.id,
         principalType: 'USER',
       };
-      Usuario.app.models.RoleMapping.upsertWithWhere({roleId: form.userACL}, roleMappingData);
+      Usuario.app.models.RoleMapping.upsertWithWhere({principalId: Res.id}, roleMappingData);
     });
 
     return user;
