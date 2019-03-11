@@ -13,3 +13,6 @@
     > command: `Create Database unirede;`
 6. Executar API.
   `npm run dev`
+7. Login padrão.
+    > username: admin
+    > password: 123qwe!@#
