@@ -1,5 +1,26 @@
 'use strict';
+const debug = require('debug')('Usuarios');
 
-module.exports = function(Usuario) {
-
+module.exports = Usuario => {
+  Usuario.computeACL = async (item) => {
+    debug('Criando lista de permissões!');
+    if (!item.id) return undefined;
+    const {Role, RoleMapping} = Usuario.app.models;
+    const roleMappingUser = await RoleMapping.findOne({
+      where: {
+        principalId: item.id,
+        principalType: 'USER',
+      },
+    });
+    if (roleMappingUser) {
+      return await Role.findById(roleMappingUser.roleId, {fields: ['id', 'name', 'description']})
+        .then(Res => {
+          return {
+            label: Res.name,
+            sublabel: Res.description,
+            value: Res.id,
+          };
+        });
+    } else return undefined;
+  };
 };
