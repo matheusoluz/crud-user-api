@@ -23,4 +23,28 @@ module.exports = Usuario => {
         });
     } else return undefined;
   };
+
+  /**
+ * Cria/atualiza usuário juntamente com permissões de usuário
+ * @param {object} form Dados do formulário de insert/update
+ */
+  Usuario.CreateOrUpdateWhithACL = async (form) => {
+    const id = form.id;
+    delete form.id;
+
+    const user = id ?
+      Usuario.updateAll({id: id}, form) :
+      Usuario.create(form);
+
+    user.then(Res => {
+      const roleMappingData = {
+        roleId: form.userACL,
+        principalId: Res.id,
+        principalType: 'USER',
+      };
+      Usuario.app.models.RoleMapping.upsertWithWhere({roleId: form.userACL}, roleMappingData);
+    });
+
+    return user;
+  };
 };

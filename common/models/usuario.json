@@ -20,20 +20,52 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [{
-    "accessType": "EXECUTE",
-    "principalType": "ROLE",
-    "principalId": "$authenticated",
-    "permission": "ALLOW",
-    "property": [
-      "find",
-      "findById",
-      "deleteById",
-      "create",
-      "patchAttributes",
-      "findOne",
-      "updateAll"
-    ]
-  }],
-  "methods": {}
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": [
+        "find",
+        "findById",
+        "deleteById",
+        "create",
+        "patchAttributes",
+        "findOne",
+        "updateAll",
+        "CreateOrUpdateWhithACL"
+      ]
+    }
+  ],
+  "methods": {
+    "CreateOrUpdateWhithACL": {
+      "accepts": [
+        {
+          "arg": "form",
+          "type": "object",
+          "required": true,
+          "description": "Dados do formulário de insert/update",
+          "http": {
+            "source": "form"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "Return",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "Cria/atualiza usuário juntamente com permissões de usuário",
+      "http": [
+        {
+          "path": "/CreateOrUpdateWhithACL",
+          "verb": "post"
+        }
+      ]
+    }
+  }
 }
