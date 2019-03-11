@@ -1,6 +1,5 @@
 'use strict';
 const debug = require('debug')('Usuarios');
-const lodash = require('lodash');
 
 module.exports = Usuario => {
   Usuario.computeACL = async (item) => {
@@ -13,14 +12,15 @@ module.exports = Usuario => {
         principalType: 'USER',
       },
     });
-    if (roleMappingUser) return await Role.findById(roleMappingUser.roleId, {fields: ['id', 'name', 'description']})
-      .then(Res => {
-        return {
-          label: Res.name,
-          sublabel: Res.description,
-          value: Res.id,
-        };
-      });
-    else return undefined;
+    if (roleMappingUser) {
+      return await Role.findById(roleMappingUser.roleId, {fields: ['id', 'name', 'description']})
+        .then(Res => {
+          return {
+            label: Res.name,
+            sublabel: Res.description,
+            value: Res.id,
+          };
+        });
+    } else return undefined;
   };
 };
